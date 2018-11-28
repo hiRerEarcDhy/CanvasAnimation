@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Department of Visual and Human-Centered Computing</title>
+        <style>
+            #canvas
+            {
+                border:1px solid black;
+                width:1000px;
+                height:500px;
+            }
+
+            #loadingMessage
+            {
+                position:absolute;
+                top:100px;
+                left:100px;
+                z-index:100;
+                font-size:50px;
+            }
+        </style>
+    <script src="SonicFinishAnimation.js"></script>
+    <script src="BoxAnimationStart.js"></script>
+    <script src="BoxAnimationEnd.js"></script>
+    <script src="TextAnimationStart1.js"></script>
+    <script src="TextAnimationStart2.js"></script>
+    <script src="TextAnimationStart3.js"></script>
+    <script src="TextBoxAnimation.js"></script>
+    <script src="TextAnimationEnd.js"></script>
+    <script src="BackgroundAnimation.js"></script>
+    <script src="SonicSpriteAnimation.js"></script>
+
+        <script>
+            var CANVAS_WIDTH = 355;
+            var CANVAS_HEIGHT = 200;
+
+            var canvas;
+            //FOR DRAWING ANIMATIONS, IMAGES ETC
+            var ctx;
+
+            //SPEECH BUBBLE IMAGE
+            var img = new Image();
+            img.src = "speechBubble.png";
+
+            //ARRAY WHERE ANIMATIONS ARE STORED
+            var animation = [];
+
+            window.onload = onAllAssetsLoaded;
+            document.write("<div id='loadingMessage'>Loading...</div>");
+
+
+            function onAllAssetsLoaded()
+            {
+                //KILL THE LOADING MESSAGE WHEN ANIMATION APPEARS
+                document.getElementById('loadingMessage').style.visibility = "hidden";
+
+                canvas = document.getElementById("canvas");
+                ctx = canvas.getContext("2d");
+                canvas.width = CANVAS_WIDTH;
+                canvas.height = CANVAS_HEIGHT;
+
+                //LISTS ANIMATIONS
+                animation[0] = new BackgroundAnimation(ctx, 1); //background scrolling throughout
+                animation[1] = new SonicAnimation(ctx, 30, 115, 45, 45, 0, 0);   //(ctx, x-location, y-location, Sonic'sHeight, Sonic'sWidth, Sonic'sSpeed, Sonic'sDelay)
+                animation[2] = new BoxAnimationStart(ctx, 3500, -200, 0);  //(ctx, animationDelay, endY, x)
+                
+                //Sonic's talk**********************************************************************************************************************************
+                animation[3] = new TextBox("15px Arial","Hey there!", ctx, 95, 95, -450, 95, 4000, 1, 3, 0, 7000, "black");//(font, text, ctx, desiredX, desiredY, x, y, animationStartDelay, ANIMATION_SPEED, stepX, stepY, delayKill, color)
+                animation[4] = new TextBox("15px Arial","Did you know", ctx, 85, 80, -450, 80, 7000, 1, 3, 0, 9500, "black");
+                animation[5] = new TextBox("15px Arial","in this department", ctx, 70, 95, -450, 95, 7000, 1, 3, 0, 9500, "black");
+                animation[6] = new TextBox("15px Arial","there are", ctx, 95, 110, -450, 110, 7000, 1, 3, 0, 9500, "black");
+                animation[7] = new TextBox("15px Arial","6 full courses:", ctx, 70, 80, -450, 80, 9500, 1, 3, 0, 12000, "red");
+                animation[8] = new TextBox("15px Arial","-Computing", ctx, 70, 95, -450, 95, 9500, 1, 3, 0, 12000, "black");
+                animation[9] = new TextBox("15px Arial","-Game Developm.", ctx, 70, 110, -450, 110, 9500, 1, 3, 0, 12000, "black");
+                animation[10] = new TextBox("15px Arial","-Multim. Web Dev", ctx, 67, 80, -450, 80, 12000, 1, 3, 0, 14500, "black");
+                animation[11] = new TextBox("15px Arial","-Computing w/ Eng", ctx, 67, 95, -450, 95, 12000, 1, 3, 0, 14500, "black");
+                animation[12] = new TextBox("15px Arial","AND", ctx, 110, 110, -450, 110, 12000, 1, 3, 0, 14500, "red");
+                animation[13] = new TextBox("15px Arial","Cert. in 2D/3D", ctx, 80, 80, -450, 80, 14500, 1, 3, 0, 16500, "black");
+                animation[14] = new TextBox("15px Arial","Animation", ctx, 94, 95, -450, 95, 14500, 1, 3, 0, 16500, "black");
+                animation[15] = new TextBox("15px Arial","Production,", ctx, 90, 110, -450, 110, 14500, 1, 3, 0, 16500, "black");
+                animation[16] = new TextBox("15px Arial","Cert. in 3D", ctx, 80, 80, -450, 80, 16500, 1, 3, 0, 18500, "black");
+                animation[17] = new TextBox("15px Arial","for", ctx, 100, 95, -450, 95, 16500, 1, 3, 0, 18500, "black");
+                animation[18] = new TextBox("15px Arial","Games", ctx, 90, 110, -450, 110, 16500, 1, 3, 0, 18500, "black");
+                animation[19] = new TextBox("15px Arial","Which are part", ctx, 80, 90, -450, 90, 18500, 1, 3, 0, 20500, "red");
+                animation[20] = new TextBox("15px Arial","time courses.", ctx, 85, 105, -450, 105, 18500, 1, 3, 0, 20500, "red");
+                animation[21] = new TextBox("15px Arial","With these courses", ctx, 67, 80, -450, 80, 20500, 1, 3, 0, 23000, "black");
+                animation[22] = new TextBox("15px Arial","you express your", ctx, 68, 95, -450, 95, 20500, 1, 3, 0, 23000, "black");
+                animation[23] = new TextBox("15px Arial","innovation and skill,", ctx, 67, 110, -450, 110, 20500, 1, 3, 0, 23000, "black");
+                
+                animation[24] = new TextBox("15px Arial","creative nature, and  ", ctx, 65, 80, -450, 80, 23000, 1, 3, 0, 26000, "black");
+                animation[25] = new TextBox("15px Arial","in depth info", ctx, 80, 95, -450, 95, 23000, 1, 3, 0, 26000, "black");
+                animation[26] = new TextBox("15px Arial","to create things,", ctx, 70, 110, -450, 110, 23000, 1, 3, 0, 26000, "black");
+                animation[27] = new TextBox("17px Arial","Like me!", ctx, 95, 95, -450, 95, 26000, 1, 3, 0, 29000, "red");
+                //Start and closing animations*******************************************************************************************************************
+                animation[28] = new TextAnimationStart1(ctx, 3500, "Department of Visual", -200, 50, 30, "black");//(ctx, animationDelay, message, endY, x, fontSize,Colour)
+                animation[29] = new TextAnimationStart2(ctx, 3500, "&", -200, 165, 30, "black");
+                animation[30] = new TextAnimationStart3(ctx, 3500, "Human centered Computing", -200, 6, 30, "black");
+                animation[31] = new BoxAnimationEnd(ctx, 28500, 0, 0);  //(ctx, animationStartDelay, endY, x)//box that comes up at the end
+                animation[32] = new TextAnimation(ctx, 29000, "Department of Visual", 50, 50, 30, "black");  
+                animation[33] = new TextAnimation(ctx, 29400, "&", 110, 165, 30, "black");
+                animation[34] = new TextAnimation(ctx, 29800, "Human centered Computing", 165, 6, 30, "black");
+                animation[35] = new SonicFinishAnimation(ctx, -10, 190, 50, 50, 10, 29000); //(ctx, centreX, centreY, width, height, sonicFinishSpeed, animationStartDelay)
+                
+                renderCanvas();
+            }
+
+            /**********************************************************************************************************************************************************/
+            
+            //RENDERS ALL ANIMATIONS USING THE FOR LOOP
+            function renderCanvas()
+            {
+                requestAnimationFrame(renderCanvas);
+                ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+
+                //DRAWS SONIC, BACKGROUND ETC SO THAT IT CAN BE COVERED BY THE BOX AND TEXT AT BEGINNING
+                for (var i = 0; i <= 2; i++)
+                {
+                    animation[i].render();
+                }
+                //IMAGE (SPEECH BUBBLE) DRAWN AT A CERTAIN TIME IN THE ANIMATION SO THAT IT DOESNT GET PLACED ON TOP OF CERTAIN ANIMATIONS
+                ctx.drawImage(img, 55, 60, 160, 90);
+                //ANIMATION LINE CONTINUED
+                for (i = 2; i <= animation.length; i++)
+                {
+                    animation[i].render();
+                }  
+
+            }
+        </script>
+    </head>
+
+    <body>
+        <canvas id = "canvas" tabindex="1">
+            Your browser does not support the HTML5 'Canvas' tag.
+        </canvas>
+    </body>
+</html>
